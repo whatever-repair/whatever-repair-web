@@ -20,9 +20,9 @@ $ npm install --save express body-parser path cookie-parser connect-multiparty e
 $ npm install --save-dev babel-core babel-preset-es2015 nodemon morgan 
 
 
-## 개발 개발서버 사용하기
+## 핫로더 개발서버 사용하기
 
-$ npm run development
+$ npm run dev
 
 
 
