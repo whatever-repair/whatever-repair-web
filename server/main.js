@@ -30,7 +30,6 @@ if(process.env.NODE_ENV == 'development') {
 
 app.use('/', express.static(__dirname + '/../public'));
 app.get('/api/data', (req, res) => {
-  console.log('mock', mock, req);
   res.json(mock);
 })
 
