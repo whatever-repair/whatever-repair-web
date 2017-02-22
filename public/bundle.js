@@ -9476,7 +9476,7 @@ var App = function (_React$Component) {
       return _react2.default.createElement(
         'h1',
         null,
-        'This is TEST!!!'
+        '\uBB50\uB4E0\uC9C0 \uC218\uB9AC!!!'
       );
     }
   }]);
