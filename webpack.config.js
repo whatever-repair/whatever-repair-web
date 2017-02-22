@@ -1,34 +1,26 @@
-var webpack = require('webpack');
-var path = require('path');
+module.exports = {
+  // 가장 처음 읽을 스크립트파일
+  // 여기서부터 import 되어있는 다른 스크립트를 불러온다.
+  entry: './src/index.js',
 
-var BUILD_DIR = path.resolve(__dirname, 'client/dist');
+  // 파일을 합치고 ./public/bundle.js 에 저장한다.
+  output: {
+    path: __dirname + '/public',
+    filename: 'bundle.js'
+  },
 
-var APP_DIR = path.resolve(__dirname, 'client/src');
-
-var config = {
-  entry: APP_DIR + '/index.jsx',
+  // ES6 문법과 JSX 문법을 사용한다
   module: {
     loaders: [
       {
-        test: /\.jsx?/,
-        include: APP_DIR,
-        loader: 'babel',
-        cacheDirectory: true,
+        test: /\.js$/,
+        loader: 'babel-loader',
+        exclude: /node_modules/,
         query: {
-          presets: ['es2015', 'react']
-        },
-        exclude: /node_modules/
-      },
-      {
-        test: /\.css$/,
-        loader: 'style!css-loader?modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]'
+            cacheDirectory: true,
+            presets: ['es2015', 'react']
+        }
       }
     ]
-  },
-  output: {
-    path: BUILD_DIR,
-    filename: 'bundle.js'
   }
 };
-
-module.exports = config;
