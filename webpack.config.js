@@ -1,36 +1,26 @@
-var webpack = require('webpack');
-
 module.exports = {
-  entry: './src/index.js', // 이 파일 부터 require 를 재귀적으로 불러옴 배열로 여러 파일도 가능.
+  // 가장 처음 읽을 스크립트파일
+  // 여기서부터 import 되어있는 다른 스크립트를 불러온다.
+  entry: './src/index.js',
 
+  // 파일을 합치고 ./public/bundle.js 에 저장한다.
   output: {
-    path: __dirname + '/public/',
-    filename: 'bundle.js' // 아웃풋
+    path: __dirname + '/public',
+    filename: 'bundle.js'
   },
 
-  devServer: {
-    hot: true, // 파일 수정 시 마다 브라우저 새로 고침.
-    inline: true, // 웹 팩 데브 서버의 클라이언트를 웹팩에 포함?
-    host: '0.0.0.0', // 다른 서버를 사용할 경우.
-    port: 4000,
-    contentBase: __dirname + '/public/', // 인덱스 파일 위치
-  },
-
-  module:{
+  // ES6 문법과 JSX 문법을 사용한다
+  module: {
     loaders: [
       {
-        test: /.js$/,
-        loaders: ['react-hot-loader', 'babel-loader?' + JSON.stringify({
-          cacheDirectory: true,
-          presets: ['es2015', 'stage-0', 'react']
-        })],
-        exclude: /node_modules/
+        test: /\.js$/,
+        loader: 'babel-loader',
+        exclude: /node_modules/,
+        query: {
+            cacheDirectory: true,
+            presets: ['es2015', 'react']
+        }
       }
     ]
-  },
-
-  plugins: [
-    new webpack.HotModuleReplacementPlugin()
-  ]
-
+  }
 };
