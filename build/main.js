@@ -16,6 +16,10 @@ var _connectMultiparty = require('connect-multiparty');
 
 var _connectMultiparty2 = _interopRequireDefault(_connectMultiparty);
 
+var _mock = require('../db/mock/mock.js');
+
+var _mock2 = _interopRequireDefault(_mock);
+
 var _webpackDevServer = require('webpack-dev-server');
 
 var _webpackDevServer2 = _interopRequireDefault(_webpackDevServer);
@@ -28,7 +32,8 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 // 파일 업로드를 가능하게 해줌. <form method="post" enctype="multipart/form-data"> <input type="file">
 
-var app = (0, _express2.default)();
+var app = (0, _express2.default)(); // 파일 업로드를 가능하게 해줌. <form method="post" enctype="multipart/form-data"> <input type="file">
+
 var port = 3000;
 var devPort = 3001;
 
@@ -49,6 +54,10 @@ if (process.env.NODE_ENV == 'development') {
 }
 
 app.use('/', _express2.default.static(__dirname + '/../public'));
+app.get('/api/data', function (req, res) {
+  console.log('mock', _mock2.default, req);
+  res.json(_mock2.default);
+});
 
 var server = app.listen(port, function () {
   console.log('Express listening on port', port);
