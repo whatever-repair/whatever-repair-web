@@ -55,7 +55,6 @@ if (process.env.NODE_ENV == 'development') {
 
 app.use('/', _express2.default.static(__dirname + '/../public'));
 app.get('/api/data', function (req, res) {
-  console.log('mock', _mock2.default, req);
   res.json(_mock2.default);
 });
 
