@@ -14,8 +14,7 @@ const Header = () => {
             <div className={styles.logo}></div>
             <div className={styles.menu}>
                 <MenuItem to={'/repair'}>수리견적요청</MenuItem>
-                <MenuItem to={'/'}>About</MenuItem>
-                <MenuItem to={'/'}>Work</MenuItem>
+                <MenuItem to={'/admin'}>관리자 페이지</MenuItem>
             </div>
         </div>
     );

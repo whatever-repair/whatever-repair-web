@@ -7,7 +7,8 @@ module.exports = [{
     private : {
       address : '서울시 도봉구 방학동 700',
       phone : 01012345678,
-      username : '도진호'
+      username : '도진호',
+      status : 0
     }  
   },
   {
@@ -19,7 +20,8 @@ module.exports = [{
     private : {
       address : '서울시 강북구 수유동 700',
       phone : 01012345632,
-      username : '안정현'
+      username : '안정현',
+      status : 0
     }  
   },
   {
@@ -31,7 +33,8 @@ module.exports = [{
     private : {
       address : '경기도 성남시 효정동 700',
       phone : 01098765432,
-      username : '손효정'
+      username : '손효정',
+      status : 0
     }  
   }
 ]
