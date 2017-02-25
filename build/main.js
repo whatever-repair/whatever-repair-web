@@ -61,6 +61,8 @@ if (process.env.NODE_ENV == 'development') {
 }
 
 app.use('/', _express2.default.static(__dirname + '/../public'));
+
+// db로 라우팅 되는 곳.
 app.use('/api', _orders2.default);
 
 var server = app.listen(port, function () {

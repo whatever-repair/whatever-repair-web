@@ -31,6 +31,8 @@ if(process.env.NODE_ENV == 'development') {
 }
 
 app.use('/', express.static(__dirname + '/../public'));
+
+// db로 라우팅 되는 곳.
 app.use('/api', orderRouter);
 
 const server = app.listen(port, () => {
