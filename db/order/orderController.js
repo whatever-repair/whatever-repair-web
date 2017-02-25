@@ -6,9 +6,6 @@ function findAll(callback) {
 }
 
 // db에 한가지를 씀
-// function insertOne(userReq, callback) {
-//   OrderModel.create(userReq, callback);
-// }
 function insertOne(userReq, callback) {
   var order = new OrderModel(userReq);
   order.save(callback);

@@ -17,6 +17,7 @@ const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connectio error'));
 db.once('open', () => console.log('db connect'));
 
+// db 불러오기
 router.route('/order')
   .get((req, res) => {
     orderController.findAll((err, data) => {
@@ -25,6 +26,7 @@ router.route('/order')
     });
   });
 
+// db 쓰기
 router.route('/order')
   .post((req, res) => {
     const userReq = {

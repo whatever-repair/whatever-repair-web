@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 
+//FIXME: 추후 스키마 수정
 const orderSchema = mongoose.Schema({
   repairType: {
     type: String,

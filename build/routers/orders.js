@@ -34,6 +34,7 @@ db.once('open', function () {
   return console.log('db connect');
 });
 
+// db 불러오기
 router.route('/order').get(function (req, res) {
   _orderController2.default.findAll(function (err, data) {
     if (err) {
@@ -43,6 +44,7 @@ router.route('/order').get(function (req, res) {
   });
 });
 
+// db 쓰기
 router.route('/order').post(function (req, res) {
   var userReq = {
     repairType: req.body.repairType,
