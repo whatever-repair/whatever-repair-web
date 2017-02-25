@@ -12442,6 +12442,18 @@ var App = function (_React$Component) {
             'h1',
             null,
             '\uBB50\uB4E0\uC9C0 \uC218\uB9AC'
+          ),
+          _react2.default.createElement(
+            'div',
+            null,
+            _react2.default.createElement(
+              'a',
+              { href: '/dbtest.html', target: '_blank' },
+              'db \uD14C\uC2A4\uD2B8 \uD398\uC774\uC9C0\uC785\uB2C8\uB2E4. \uB2E4\uC74C \uBA38\uC9C0 \uB54C \uC9C0\uC6B0\uACE0 \uC791\uC5C5\uD558\uC138\uC694.'
+            ),
+            _react2.default.createElement('br', null),
+            _react2.default.createElement('br', null),
+            '\uB098\uC911\uC5D0 \uC791\uC5C5 \uD558\uC2E4 \uB54C /public/dbtest.html \uD30C\uC77C \uBCF4\uC2DC\uACE0 name\uAC12 \uCC38\uACE0\uD558\uC154\uC11C db\uC5D0 \uD3FC \uB370\uC774\uD130 \uBCF4\uB0B4\uC2DC\uBA74 \uB429\uB2C8\uB2E4.'
           )
         )
       );
