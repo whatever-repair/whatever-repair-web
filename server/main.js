@@ -2,8 +2,10 @@ import express from 'express';
 import bodyParser from 'body-parser';
 import morgan from 'morgan';
 import multipart from 'connect-multiparty';  // 파일 업로드를 가능하게 해줌. <form method="post" enctype="multipart/form-data"> <input type="file">
+import mongoose from 'mongoose';
 
 import mock from '../db/mock/mock.js';  // 파일 업로드를 가능하게 해줌. <form method="post" enctype="multipart/form-data"> <input type="file">
+import orderRouter from './routers/orders.js';
 
 import WebpackDevServer from 'webpack-dev-server';
 import webpack from 'webpack';
@@ -29,9 +31,9 @@ if(process.env.NODE_ENV == 'development') {
 }
 
 app.use('/', express.static(__dirname + '/../public'));
-app.get('/api/data', (req, res) => {
-  res.json(mock);
-})
+
+// db로 라우팅 되는 곳.
+app.use('/api', orderRouter);
 
 const server = app.listen(port, () => {
   console.log('Express listening on port', port);

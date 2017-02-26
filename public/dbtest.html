@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>Document</title>
+</head>
+<body>
+  <h1>DB 쓰기 테스트</h1>
+  <form action="/api/order" method="post">
+    <p>
+      <label for="repair">종류: 
+        <input id="repair" type="text" name="repairType" value="도배" required>
+      </label>
+    </p>
+    <p>
+      <label for="message">내용: 
+        <input id="message" type="text" name="message" required>
+      </label>
+    </p>
+    <p>
+      <label for="reqDate">요청일: 
+        <input id="reqDate" type="text" name="reqDate" value="2017년 3월 13일" required>
+      </label>
+    </p>
+    <p>
+      <label for="username">성함: 
+        <input id="username" type="text" name="username" required>
+      </label>
+    </p>
+    <p>
+      <label for="phone">연락처: 
+        <input id="phone" type="text" name="phone" placeholder="-없이 숫자만 입력하세요" required>
+      </label>
+    </p>
+    <p>
+      <label for="address">주소: 
+        <input id="address" type="text" name="address" value="경기도 성남시 효정동 LH아파트 1004호" required>
+      </label>
+    </p>
+    <input type="submit">
+  </form>
+  <div id="db">
+    <h1>DB 읽어오기 테스트</h1>
+  </div>
+  <script
+  src="https://code.jquery.com/jquery-2.2.4.js"
+  integrity="sha256-iT6Q9iMJYuQiMWNd9lDyBUStIq/8PuOW33aOqmvFpqI="
+  crossorigin="anonymous"></script>
+
+  <script>
+    const port = window.location.port;
+
+    $.get(`http://127.0.0.1:${port}/api/order`, function(data) {
+      console.log(data);
+      data.forEach((order, i) => {
+        $('#db').append(JSON.stringify(order) + '<br><hr>');
+      });
+    });
+  </script>
+</body>
+</html>
