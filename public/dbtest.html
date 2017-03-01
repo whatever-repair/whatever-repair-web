@@ -53,7 +53,6 @@
         url: 'api/order',
         type: 'POST',
         data: $(this).serializeArray(), // 폼데이터 타입 직렬화
-        dataType: 'json',
         success: (data) => {
           console.log('ajax sending success::: ', data);
         }
@@ -65,10 +64,10 @@
     $.ajax({
       url: '/api/order',
       type: 'GET',
-      dataType: 'json',
+      contentType: 'application/json',
       success: function(data) {
         if (data) {
-          data.sort((a, b) => a.time < b.time);
+          data.sort((a, b) => a['created_time'] < b['created_time']);
           data.forEach((order, i) => {
             $('#db').append(JSON.stringify(order) + '<br><hr>');
           });
