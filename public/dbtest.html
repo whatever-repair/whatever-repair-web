@@ -53,8 +53,13 @@
         url: 'api/order',
         type: 'POST',
         data: $(this).serializeArray(), // 폼데이터 타입 직렬화
-        success: (data) => {
-          console.log('ajax sending success::: ', data);
+        success: (status) => {
+          console.log('ajax sending success::: ', status);
+          if (status === 'OK') {
+            let username = $('#username').val();
+            let reqDate = $('#reqDate').val();
+            alert(`${username}님의 견적 예약 방문이 ${reqDate}로 신청되었습니다.`);
+          }
         }
       })
 
@@ -69,7 +74,19 @@
         if (data) {
           data.sort((a, b) => a['created_time'] < b['created_time']);
           data.forEach((order, i) => {
-            $('#db').append(JSON.stringify(order) + '<br><hr>');
+            var status = order.status === 0 ? '견적요청' : '견적완료';
+            var appendData = `
+              <div>
+                <p>진행상황: ${status}</p>
+                <p>종류: ${order.repairType}</p>
+                <p>이름: ${order.private.username}</p>
+                <p>내용: ${order.message}</p>
+                <p>연락처: ${order.private.phone}</p>
+                <p>주소: ${order.private.address}</p>
+                <p>요청일: ${order.reqDate}</p>
+                <p>신청일: ${order.created_time}</p>
+              </div>`
+            $('#db').append(appendData + '<hr>');
           });
         }  
       }
