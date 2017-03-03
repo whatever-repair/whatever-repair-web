@@ -21,6 +21,6 @@ const orderSchema = mongoose.Schema({
   status: { type : Number, default: 0 }
 });
 
-const OrderModel = mongoose.model('Order', orderSchema)
+const OrderModel = mongoose.model('Order', orderSchema);
 
 module.exports = OrderModel;

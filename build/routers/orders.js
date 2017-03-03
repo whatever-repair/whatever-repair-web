@@ -1,5 +1,11 @@
 'use strict';
 
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+
+var _fs = require('fs');
+
+var _fs2 = _interopRequireDefault(_fs);
+
 var _express = require('express');
 
 var _express2 = _interopRequireDefault(_express);
@@ -16,13 +22,19 @@ var _mongoose = require('mongoose');
 
 var _mongoose2 = _interopRequireDefault(_mongoose);
 
+var _connectMultiparty = require('connect-multiparty');
+
+var _connectMultiparty2 = _interopRequireDefault(_connectMultiparty);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+// 파일 업로드를 가능하게 해줌. <form method="post" enctype="multipart/form-data"> <input type="file">
 
 _mongoose2.default.Promise = global.Promise;
 
 var app = (0, _express2.default)();
+var mpMiddleware = (0, _connectMultiparty2.default)({ uploadDir: __dirname + '/../../uploads/' });
 var router = _express2.default.Router();
-
 app.use(_bodyParser2.default.json());
 app.use(_bodyParser2.default.urlencoded({ extended: true }));
 
@@ -45,11 +57,39 @@ router.route('/order').get(function (req, res) {
 });
 
 // db 쓰기
-router.route('/order').post(function (req, res) {
+router.route('/order').post(mpMiddleware, function (req, res) {
+  console.log('body::: ', _typeof(req.body), req.body, 'files::: ', req.files);
+  var imageFile;
+  var fileName;
+  if (req.files.image.size > 0) {
+    imageFile = req.files.image;
+    var name = imageFile.name;
+    var path = imageFile.path;
+    var type = imageFile.type;
+
+    if (type.indexOf('image') > -1) {
+      var outputPath = __dirname + '/../../uploads/' + Date.now() + '_' + name;
+      fileName = outputPath.split('uploads/')[1];
+      console.log('fileName::: ', fileName);
+      _fs2.default.rename(path, outputPath, function (err) {
+        if (err) {
+          console.log('image upload failed!!! ', err);
+        }
+        console.log('success image upload!!');
+      });
+    } else {
+      _fs2.default.unlink(path, function (err) {
+        console.log('not image type', err);
+        res.sendStatus(400);
+      });
+    }
+  }
+  console.log('imageFile::: ', imageFile, 'fileName::: ', fileName);
   var userReq = {
     repairType: req.body.repairType,
     message: req.body.message,
     reqDate: req.body.reqDate,
+    image: fileName || null,
     private: {
       address: req.body.address,
       phone: req.body.phone,

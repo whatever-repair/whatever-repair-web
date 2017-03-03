@@ -6,7 +6,10 @@
 </head>
 <body>
   <h1>DB 쓰기 테스트</h1>
-  <form id="ajaxPost" action="/api/order" method="post">
+  <form id="ajaxPost" action="/api/order" method="post" enctype="multipart/form-data">
+    <p>
+      사진 업로드: <input type="file" name="image">
+    </p>
     <p>
       <label for="repair">종류: 
         <input id="repair" type="text" name="repairType" value="도배" required>
@@ -49,10 +52,16 @@
 
   <script>
     $('#ajaxPost').submit(function(e) {
+      var formData = new FormData($(this)[0]);
+      console.log(formData);
+
       $.ajax({
         url: 'api/order',
         type: 'POST',
-        data: $(this).serializeArray(), // 폼데이터 타입 직렬화
+        data: formData, //$(this).serialize(), // 폼데이터 타입 직렬화
+        cache: false,
+        contentType: false,
+        processData: false,
         success: (status) => {
           console.log('ajax sending success::: ', status);
           if (status === 'OK') {
@@ -62,7 +71,6 @@
           }
         }
       })
-
       e.preventDefault();
     })
 
@@ -75,8 +83,10 @@
           data.sort((a, b) => a['created_time'] < b['created_time']);
           data.forEach((order, i) => {
             var status = order.status === 0 ? '견적요청' : '견적완료';
+            console.log('order.image::: ', order.image);
             var appendData = `
               <div>
+                ${order.image ? '<img src="/uploads/' + order.image + '" style="width:200px;" />' : ''}
                 <p>진행상황: ${status}</p>
                 <p>종류: ${order.repairType}</p>
                 <p>이름: ${order.private.username}</p>
