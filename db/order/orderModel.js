@@ -1,13 +1,13 @@
 const mongoose = require('mongoose');
-
-//FIXME: 추후 스키마 수정
 const orderSchema = mongoose.Schema({
   repairType: {
     type: String,
     required: true
   },
   message: String,
-  image: String,
+  image1: String,
+  image2: String,
+  image3: String,
   reqDate: {
     type: String,
     required: true
