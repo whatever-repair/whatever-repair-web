@@ -22,7 +22,7 @@ router.route('/order')
   .get((req, res) => {
     orderController.findAll((err, data) => {
       if (err) { return console.log('DB can\'t find!!!', err) }
-      res.send(data);
+      res.json(data);
     });
   });
 
@@ -45,6 +45,7 @@ router.route('/order')
         res.send('<h1>데이터 베이스 에러</h1>');
         return console.log('DB can\'t insert!!!', err)
       }
+      res.sendStatus(200);
     });
   });
 

@@ -17,7 +17,7 @@ const orderSchema = mongoose.Schema({
     phone: { type: String, required: true },
     username: { type: String, required: true }
   },
-  time: { type : Date, default: Date.now },
+  created_time: { type : Date, default: Date.now },
   status: { type : Number, default: 0 }
 });
 
