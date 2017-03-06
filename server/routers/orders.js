@@ -106,4 +106,17 @@ router.route('/order')
     });
   });
 
+  router.route('/order')
+    .put((req, res) => {
+      console.log(req.body);
+      let userReq = req.body;
+
+      orderController.editOne(userReq, (err) => {
+        if (err) {
+          res.send('<h1>데이터 베이스 에러</h1>');
+          return console.log('DB can\'t insert!!!', err);
+        }
+        res.sendStatus(200);
+      });
+    });
   module.exports = router;

@@ -12,6 +12,12 @@ function insertOne(userReq, callback) {
 }
 
 //TODO: 수정 및 삭제 코드 작성
+function editOne(userReq, callback) {
+  var id = userReq.id;
+  OrderModel.findOneAndUpdate({_id: id}, {$set: {status: parseInt(userReq.value)}}, callback);
+}
+
 
 exports.findAll = findAll;
 exports.insertOne = insertOne;
+exports.editOne = editOne;
