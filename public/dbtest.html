@@ -54,6 +54,9 @@
   crossorigin="anonymous"></script>
 
   <script>
+    var count = 0;
+    var ids = [];
+
     $('#ajaxPost').submit(function(e) {
       e.preventDefault();
       var formData = new FormData($(this)[0]); // 폼 데이터 파싱 후 생성
@@ -87,19 +90,21 @@
         if (data) {
           data.sort((a, b) => a['created_time'] < b['created_time']);
           data.forEach((order, i) => {
-            var status = order.status === 0 ? '견적요청' : '견적완료';
-            console.log('order.image1::: ', order.image1);
-            console.log('order.image2::: ', order.image2);
-            console.log('order.image3::: ', order.image3);
+            var status = order.status === 0 ? '검토중' : '수리완료';
+            console.log('order._id::: ', order);
             var appendData = `
               <div>
+                <p>
+                  검토중: <input class="radiobox" type="radio" name=${order._id} value=0 ${!order.status ? 'checked' : ''} />
+                  수리완료: <input class="radiobox" type="radio" name=${order._id} value=1 ${!!order.status ? 'checked' : ''} />
+                </p>
                 ${order.image1 ? '<img src="/uploads/' + order.image1 + '" style="width:200px;" />' : ''}
                 ${order.image2 ? '<img src="/uploads/' + order.image2 + '" style="width:200px;" />' : ''}
                 ${order.image3 ? '<img src="/uploads/' + order.image3 + '" style="width:200px;" />' : ''}
                 <p>진행상황: ${status}</p>
                 <p>종류: ${order.repairType}</p>
-                <p>이름: ${order.private.username}</p>
                 <p>내용: ${order.message}</p>
+                <p>이름: ${order.private.username}</p>
                 <p>연락처: ${order.private.phone}</p>
                 <p>주소: ${order.private.address}</p>
                 <p>요청일: ${order.reqDate}</p>
@@ -109,6 +114,23 @@
           });
         }  
       }
+    })
+    .done(() => {
+      $('.radiobox').on('click', function(e) {
+        var putData = {
+          id: $(this)[0].name,
+          value: $(this).val()
+        }
+        
+        $.ajax({
+          url: 'api/order',
+          type: 'PUT',
+          data: putData,
+          success: function(data) {
+            console.log('수정완료 ', data);
+          }
+        });
+      });
     });
   </script>
 </body>
