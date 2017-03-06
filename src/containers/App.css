@@ -1,6 +1,9 @@
 @import url(http://fonts.googleapis.com/css?family=Vollkorn|Roboto);
+
 body {
-  background: #F5F5F5;
+  background: #f5f5f5;
+  padding: 20px;
+  font-family: "Open Sans", sans-serif;
 }
 
 .container {

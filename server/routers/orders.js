@@ -120,3 +120,8 @@ router.route('/order')
       });
     });
   module.exports = router;
+
+axios.get(/api/order)
+     .then(data => {
+      console.log(data)
+     })
