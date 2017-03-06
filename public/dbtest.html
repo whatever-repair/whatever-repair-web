@@ -6,7 +6,13 @@
 </head>
 <body>
   <h1>DB 쓰기 테스트</h1>
-  <form id="ajaxPost" action="/api/order" method="post">
+  <form id="ajaxPost" action="/api/order" method="post" enctype="multipart/form-data">
+    <p>이미지는 최대 3장 까지 업로드 가능합니다.</p>
+    <p>
+      사진 업로드 1: <input type="file" name="image1">
+      사진 업로드 2: <input type="file" name="image2">
+      사진 업로드 3: <input type="file" name="image3">
+    </p>
     <p>
       <label for="repair">종류: 
         <input id="repair" type="text" name="repairType" value="도배" required>
@@ -49,10 +55,18 @@
 
   <script>
     $('#ajaxPost').submit(function(e) {
+      e.preventDefault();
+      var formData = new FormData($(this)[0]); // 폼 데이터 파싱 후 생성
+      
       $.ajax({
         url: 'api/order',
         type: 'POST',
-        data: $(this).serializeArray(), // 폼데이터 타입 직렬화
+        data: formData,
+        
+        //data: $(this).serialize(), 폼데이터 타입 직렬화, 파일 업로드 아닐 때.
+        cache: false, // 요청한 페이지가 브라우저에 의해 캐쉬 되지 않도록 함. 파일 전송 스택오버플로우
+        contentType: false, // 컨텐트 타입을 지정하지 않음. 파일 전송 스택오버플로우
+        processData: false, // 파일 전송 스택오버플로우
         success: (status) => {
           console.log('ajax sending success::: ', status);
           if (status === 'OK') {
@@ -61,10 +75,9 @@
             alert(`${username}님의 견적 예약 방문이 ${reqDate}로 신청되었습니다.`);
           }
         }
-      })
-
-      e.preventDefault();
-    })
+      });
+      
+    });
 
     $.ajax({
       url: '/api/order',
@@ -75,8 +88,14 @@
           data.sort((a, b) => a['created_time'] < b['created_time']);
           data.forEach((order, i) => {
             var status = order.status === 0 ? '견적요청' : '견적완료';
+            console.log('order.image1::: ', order.image1);
+            console.log('order.image2::: ', order.image2);
+            console.log('order.image3::: ', order.image3);
             var appendData = `
               <div>
+                ${order.image1 ? '<img src="/uploads/' + order.image1 + '" style="width:200px;" />' : ''}
+                ${order.image2 ? '<img src="/uploads/' + order.image2 + '" style="width:200px;" />' : ''}
+                ${order.image3 ? '<img src="/uploads/' + order.image3 + '" style="width:200px;" />' : ''}
                 <p>진행상황: ${status}</p>
                 <p>종류: ${order.repairType}</p>
                 <p>이름: ${order.private.username}</p>
