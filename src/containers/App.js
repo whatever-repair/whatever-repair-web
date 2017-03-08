@@ -7,7 +7,7 @@ import styles from './App.css';
 
 const MenuItem = ({active, children, to}) => (
     <Link to={to} className={styles["menu-item"]}>
-            {children}
+          {children}
     </Link>
 )
 
@@ -17,7 +17,7 @@ export default class App extends React.Component {
       <div>
       <Layout>
     <Header className={styles.header}>
-      <img className={styles.logo} src={'/uploads/1488782026486_whatever-repair_0.png'}/>
+      <img className={styles.logo} src={'/images/logo.png'}/>
       <Menu
         theme="light"
         mode="horizontal"
