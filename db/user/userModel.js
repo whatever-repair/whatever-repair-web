@@ -33,7 +33,6 @@ User.methods.verify = function(password) {
   const encrypted = crypto.createHmac('sha1', config.secret)
     .update(password)
     .digest('base64');
-
   return this.password === encrypted;
 };
 

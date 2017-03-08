@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Document</title>
-  <script src="/socket.io/socket.io.js"></script>
+ <script src="/socket.io/socket.io.js"></script>
 </head>
 <body>
   <form id="ajaxPost" >
@@ -28,7 +28,6 @@
     
     $('#ajaxPost').submit(function(e) {
       e.preventDefault();
-      
       $.ajax({
         url: 'api/user/login',
         type: 'POST',

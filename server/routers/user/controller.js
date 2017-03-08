@@ -72,7 +72,11 @@ exports.register = (req, res) => {
 
 exports.login = (req, res) => {
   const { username, password } = req.body;
+<<<<<<< HEAD
   const secret = 'HyOJuNgSoNhAsHiNg';
+=======
+  const secret = req.app.get('jwt-secret');
+>>>>>>> before rebase
 
   // check the user info & generate the jwt
   const check = (user) => {
@@ -90,9 +94,15 @@ exports.login = (req, res) => {
             admin: user.admin
           }, secret,
           {
+<<<<<<< HEAD
             expiresIn: '1d',
             issuer: 'whatever-repair.com',
             subject: 'adminInfo'
+=======
+            expiresIn: '7d',
+            issuer: 'velopert.com',
+            subject: 'userInfo'
+>>>>>>> before rebase
           }, (err, token) => {
             if (err) reject(err);
             resolve(token);
@@ -132,6 +142,10 @@ exports.login = (req, res) => {
 */
 
 exports.check = (req, res) => {
+<<<<<<< HEAD
+=======
+  console.log('after next!!!');
+>>>>>>> before rebase
   res.json({
     success: true,
     info: req.decoded
