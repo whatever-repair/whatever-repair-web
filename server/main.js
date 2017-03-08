@@ -13,10 +13,13 @@ import webpack from 'webpack';
 const app = express();
 const port = 3000;
 const devPort = 3001;
+const config = require('../config.js');
 
 app.use(morgan('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
+
+app.set('jwt-secret', config.secret);
 
 // webpack-dev-server
 if(process.env.NODE_ENV == 'development') {

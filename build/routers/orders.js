@@ -1,6 +1,7 @@
 'use strict';
 
-var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; // 파일 업로드를 가능하게 해줌. <form method="post" enctype="multipart/form-data"> <input type="file">
+
 
 var _fs = require('fs');
 
@@ -26,9 +27,11 @@ var _connectMultiparty = require('connect-multiparty');
 
 var _connectMultiparty2 = _interopRequireDefault(_connectMultiparty);
 
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+var _user = require('./user');
 
-// 파일 업로드를 가능하게 해줌. <form method="post" enctype="multipart/form-data"> <input type="file">
+var _user2 = _interopRequireDefault(_user);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 _mongoose2.default.Promise = global.Promise;
 
@@ -148,4 +151,8 @@ router.route('/order').put(function (req, res) {
     res.sendStatus(200);
   });
 });
+
+// user route
+router.use('/user', _user2.default);
+
 module.exports = router;
