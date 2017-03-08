@@ -63,7 +63,7 @@ exports.register = function (req, res) {
 };
 
 /*
-  POST /api/auth.login
+  POST /api/auth/login
   {
     username,
     password
