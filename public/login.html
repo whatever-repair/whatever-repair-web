@@ -21,15 +21,13 @@
   integrity="sha256-iT6Q9iMJYuQiMWNd9lDyBUStIq/8PuOW33aOqmvFpqI="
   crossorigin="anonymous"></script>
   <script>
-    // window.onload = function() {
-      var socket = io.connect();
-      console.log('socket', socket);
-      socket.on('push', function(data) {
-        console.log('client receive push!!');
-        alert(data);
-      });
-    // }
-
+    var socket = io.connect();
+    console.log('socket', socket);
+    socket.on('push', function(data) {
+      console.log('client receive push!!');
+      alert(data);
+    });
+    
     $('#ajaxPost').submit(function(e) {
       e.preventDefault();
       
@@ -42,7 +40,6 @@
           window.localStorage.setItem('repair', data.token);
         }
       });
-      
     });
   </script>
 </body>
