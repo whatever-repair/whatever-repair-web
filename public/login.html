@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  <form id="ajaxPost" >
+    <input type="text" name="username" placeholder="아이디">
+    <input type="password" name="password" placeholder="비밀번호">
+    <input type="submit" value="회원가입">
+    <input type="submit" value="로그인">
+  </form>
+
+  <script
+  src="https://code.jquery.com/jquery-2.2.4.js"
+  integrity="sha256-iT6Q9iMJYuQiMWNd9lDyBUStIq/8PuOW33aOqmvFpqI="
+  crossorigin="anonymous"></script>
+  <script>
+    $('#ajaxPost').submit(function(e) {
+      e.preventDefault();
+      
+      $.ajax({
+        url: 'api/user/login',
+        type: 'POST',
+        data: $(this).serialize(), // 폼데이터 타입 직렬화, 파일 업로드 아닐 때.
+        success: (data) => {
+          console.log('ajax sending success::: ', data);
+          window.localStorage.setItem('repair', data.token);
+        }
+      });
+      
+    });
+  </script>
+</body>
+</html>

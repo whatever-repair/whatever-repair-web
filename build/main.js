@@ -42,18 +42,21 @@ var app = (0, _express2.default)(); // 파일 업로드를 가능하게 해줌. 
 
 var port = 3000;
 var devPort = 3001;
+var config = require('../config.js');
 
 app.use((0, _morgan2.default)('dev'));
 app.use(_bodyParser2.default.json());
 app.use(_bodyParser2.default.urlencoded({ extended: false }));
 
+app.set('jwt-secret', config.secret);
+
 // webpack-dev-server
 if (process.env.NODE_ENV == 'development') {
   console.log('Server is running on development mode');
 
-  var config = require('../webpack.dev.config');
-  var compiler = (0, _webpack2.default)(config);
-  var devServer = new _webpackDevServer2.default(compiler, config.devServer);
+  var _config = require('../webpack.dev.config');
+  var compiler = (0, _webpack2.default)(_config);
+  var devServer = new _webpackDevServer2.default(compiler, _config.devServer);
   devServer.listen(devPort, function () {
     console.log('webpack-dev-server is listening on port', devPort);
   });
