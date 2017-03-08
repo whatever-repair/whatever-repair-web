@@ -94,3 +94,4 @@ export default class ContactInfo extends React.Component {
     )
   }
 }
+
