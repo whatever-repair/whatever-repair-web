@@ -4,6 +4,7 @@ import bodyParser from 'body-parser';
 import orderController from '../../db/order/orderController';
 import mongoose from 'mongoose';
 import multipart from 'connect-multiparty';  // 파일 업로드를 가능하게 해줌. <form method="post" enctype="multipart/form-data"> <input type="file">
+import user from './user';
 
 mongoose.Promise = global.Promise;
 
@@ -119,4 +120,8 @@ router.route('/order')
         res.sendStatus(200);
       });
     });
+
+  // user route
+  router.use('/user', user);
+
   module.exports = router;
