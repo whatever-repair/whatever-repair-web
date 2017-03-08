@@ -4,6 +4,10 @@ var _express = require('express');
 
 var _express2 = _interopRequireDefault(_express);
 
+var _socket = require('socket.io');
+
+var _socket2 = _interopRequireDefault(_socket);
+
 var _bodyParser = require('body-parser');
 
 var _bodyParser2 = _interopRequireDefault(_bodyParser);
@@ -40,6 +44,10 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 var app = (0, _express2.default)(); // 파일 업로드를 가능하게 해줌. <form method="post" enctype="multipart/form-data"> <input type="file">
 
+app.io = (0, _socket2.default)();
+var server = require('http').createServer(app);
+app.io.attach(server);
+
 var port = 3000;
 var devPort = 3001;
 var config = require('../config.js');
@@ -68,6 +76,17 @@ app.use('/', _express2.default.static(__dirname + '/../public'));
 app.use('/api', _orders2.default);
 app.use('/uploads', _upload2.default);
 
-var server = app.listen(port, function () {
-  console.log('Express listening on port', port);
+server.listen(port, function () {
+  console.log('Express and socket.io listening on port', port);
 });
+
+var io = _socket2.default.listen(server);
+io.sockets.on('connection', function (socket) {
+  console.log('socket connection!!!');
+  socket.on('newOrder', function (data) {
+    console.log('server receive newOrder!!', data);
+    io.sockets.emit('push', data);
+  });
+});
+
+module.exports = server;

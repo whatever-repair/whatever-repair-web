@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <title>Document</title>
+  <script src="/socket.io/socket.io.js"></script>
 </head>
 <body>
   <h1>DB 쓰기 테스트</h1>
@@ -54,9 +55,6 @@
   crossorigin="anonymous"></script>
 
   <script>
-    var count = 0;
-    var ids = [];
-
     $('#ajaxPost').submit(function(e) {
       e.preventDefault();
       var formData = new FormData($(this)[0]); // 폼 데이터 파싱 후 생성
@@ -75,6 +73,9 @@
           if (status === 'OK') {
             let username = $('#username').val();
             let reqDate = $('#reqDate').val();
+            let socket = io.connect();
+            console.log(socket);
+            socket.emit('newOrder', '새로운 주문');
             alert(`${username}님의 견적 예약 방문이 ${reqDate}로 신청되었습니다.`);
           }
         }
@@ -91,7 +92,6 @@
           data.sort((a, b) => a['created_time'] < b['created_time']);
           data.forEach((order, i) => {
             var status = order.status === 0 ? '검토중' : '수리완료';
-            console.log('order._id::: ', order);
             var appendData = `
               <div>
                 <p>

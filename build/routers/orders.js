@@ -1,8 +1,5 @@
 'use strict';
 
-var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; // 파일 업로드를 가능하게 해줌. <form method="post" enctype="multipart/form-data"> <input type="file">
-
-
 var _fs = require('fs');
 
 var _fs2 = _interopRequireDefault(_fs);
@@ -33,7 +30,8 @@ var _user2 = _interopRequireDefault(_user);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-_mongoose2.default.Promise = global.Promise;
+_mongoose2.default.Promise = global.Promise; // 파일 업로드를 가능하게 해줌. <form method="post" enctype="multipart/form-data"> <input type="file">
+
 
 var app = (0, _express2.default)();
 
@@ -66,7 +64,6 @@ router.route('/order')
 
 // multipart 미들웨어를 사용해야 req.files를 읽을 수 있음
 .post(mpMiddleware, function (req, res) {
-  console.log('body::: ', _typeof(req.body), req.body, 'files::: ', req.files);
 
   // 이미지 파일 존재 하는 것만 db에 쓰기 위한 코드
   var imageFiles = [req.files.image1, req.files.image2, req.files.image3];
@@ -105,14 +102,12 @@ router.route('/order')
     } else {
       _fs2.default.unlink(v.path, function (err) {
         if (err) {
-          console.log('NO image error', err);
+          console.log('there is no image', err);
           res.sendStatus(400);
         }
       });
     }
   });
-
-  console.log('imageFile::: ', imageFiles, 'fileName::: ', fileNames);
 
   // 몽구스 스키마 설정, 이미지가 없는 필드는 null을 입력하여 클라이언트에서 로드 할 때 건너 뛸 수 있도록 함
   var userReq = {
@@ -135,12 +130,12 @@ router.route('/order')
       res.send('<h1>데이터 베이스 에러</h1>');
       return console.log('DB can\'t insert!!!', err);
     }
+
     res.sendStatus(200);
   });
 });
 
 router.route('/order').put(function (req, res) {
-  console.log(req.body);
   var userReq = req.body;
 
   _orderController2.default.editOne(userReq, function (err) {
