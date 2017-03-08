@@ -60,6 +60,7 @@
       window.localStorage.removeItem('repair');
       window.location = 'http://127.0.0.1:3000/'
     });
+    
     $('#ajaxPost').submit(function(e) {
       e.preventDefault();
       var formData = new FormData($(this)[0]); // 폼 데이터 파싱 후 생성

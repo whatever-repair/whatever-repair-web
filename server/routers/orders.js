@@ -36,7 +36,6 @@ router.route('/order')
 
   // multipart 미들웨어를 사용해야 req.files를 읽을 수 있음
   .post(mpMiddleware, (req, res) => {
-    console.log('body::: ', typeof req.body, req.body, 'files::: ', req.files);
 
     // 이미지 파일 존재 하는 것만 db에 쓰기 위한 코드
     let imageFiles = [req.files.image1, req.files.image2, req.files.image3];
@@ -73,14 +72,12 @@ router.route('/order')
       } else {
         fs.unlink(v.path, (err) => {
           if (err) {
-            console.log('NO image error', err);
+            console.log('there is no image', err);
             res.sendStatus(400);
           }
         });
       }
     });
-
-    console.log('imageFile::: ', imageFiles, 'fileName::: ', fileNames);
 
     // 몽구스 스키마 설정, 이미지가 없는 필드는 null을 입력하여 클라이언트에서 로드 할 때 건너 뛸 수 있도록 함
     const userReq = {
@@ -103,13 +100,13 @@ router.route('/order')
         res.send('<h1>데이터 베이스 에러</h1>');
         return console.log('DB can\'t insert!!!', err);
       }
+      
       res.sendStatus(200);
     });
   });
 
   router.route('/order')
     .put((req, res) => {
-      console.log(req.body);
       let userReq = req.body;
 
       orderController.editOne(userReq, (err) => {
