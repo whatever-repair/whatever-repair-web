@@ -1,5 +1,7 @@
-const jwt = require('jsonwebtoken');
-const User = require('../../../db/user/userModel');
+'use strict';
+
+var jwt = require('jsonwebtoken');
+var User = require('../../../db/user/userModel');
 
 /*
   POST /api/auth/signup
@@ -9,12 +11,15 @@ const User = require('../../../db/user/userModel');
   }
 */
 
-exports.register = (req, res) => {
-  const { username, password } = req.body;
-  let newUser = null;
+exports.register = function (req, res) {
+  var _req$body = req.body,
+      username = _req$body.username,
+      password = _req$body.password;
+
+  var newUser = null;
 
   // create a new user if does not exist
-  const create = (user) => {
+  var create = function create(user) {
     if (user) {
       throw new Error('username exists');
     } else {
@@ -23,13 +28,13 @@ exports.register = (req, res) => {
   };
 
   // count the number of th user
-  const count = (user) => {
+  var count = function count(user) {
     newUser = user;
     return User.count({}).exec();
   };
 
   // assign admin if count is 1
-  const assign = (count) => {
+  var assign = function assign(count) {
     if (count === 1) {
       newUser.admin = true;
       return true;
@@ -39,7 +44,7 @@ exports.register = (req, res) => {
     }
   };
 
-  const respond = (isAdmin) => {
+  var respond = function respond(isAdmin) {
     res.json({
       message: 'registered successful',
       admin: isAdmin ? true : false
@@ -47,35 +52,33 @@ exports.register = (req, res) => {
   };
 
   // run when there is an error (username exists)
-  const onError = (error) => {
+  var onError = function onError(error) {
     res.status(409).json({
       message: error.message
     });
   };
 
   // check username duplication
-  User.findOneByUsername(username)
-  .then(create)
-  .then(count)
-  .then(assign)
-  .then(respond)
-  .catch(onError);
+  User.findOneByUsername(username).then(create).then(count).then(assign).then(respond).catch(onError);
 };
 
 /*
-  POST /api/auth/login
+  POST /api/auth.login
   {
     username,
     password
   }
 */
 
-exports.login = (req, res) => {
-  const { username, password } = req.body;
-  const secret = req.app.get('jwt-secret');
+exports.login = function (req, res) {
+  var _req$body2 = req.body,
+      username = _req$body2.username,
+      password = _req$body2.password;
+
+  var secret = req.app.get('jwt-secret');
 
   // check the user info & generate the jwt
-  const check = (user) => {
+  var check = function check(user) {
     if (!user) {
       // user does not exist
       throw new Error('login failed');
@@ -83,17 +86,16 @@ exports.login = (req, res) => {
       // user exist, check the password
       if (user.verify(password)) {
         // create a promise that generate jwt asyncronous
-        const p = new Promise((resolve, reject) => {
+        var p = new Promise(function (resolve, reject) {
           jwt.sign({
             _id: user._id,
             username: user.username,
             admin: user.admin
-          }, secret,
-          {
-            expiresIn: '1d',
-            issuer: 'whatever-repair.com',
+          }, secret, {
+            expiresIn: '7d',
+            issuer: 'velopert.com',
             subject: 'userInfo'
-          }, (err, token) => {
+          }, function (err, token) {
             if (err) reject(err);
             resolve(token);
           });
@@ -106,39 +108,32 @@ exports.login = (req, res) => {
   };
 
   // respond the token
-  const respond = (token) => {
+  var respond = function respond(token) {
     res.json({
       message: 'logged in successfully',
-      token
+      token: token
     });
   };
 
   // error occured
-  const onError = (error) => {
+  var onError = function onError(error) {
     res.status(403).json({
       message: error.message
     });
   };
 
   // find user
-  User.findOneByUsername(username)
-  .then(check)
-  .then(respond)
-  .catch(onError);
+  User.findOneByUsername(username).then(check).then(respond).catch(onError);
 };
 
 /*
   GET /api/auth/check
 */
 
-exports.check = (req, res) => {
+exports.check = function (req, res) {
   console.log('after next!!!');
   res.json({
     success: true,
     info: req.decoded
   });
-<<<<<<< HEAD
 };
-=======
-};
->>>>>>> before rebase

@@ -27,8 +27,8 @@
         data: $(this).serialize(), // 폼데이터 타입 직렬화, 파일 업로드 아닐 때.
         success: (data) => {
           console.log('ajax sending success::: ', data);
-          if (data.token) {
-            window.localStorage.setItem('repair', data.token);
+          if (data) {
+            window.localStorage.setItem('repair', data);
           }
         }
       })
