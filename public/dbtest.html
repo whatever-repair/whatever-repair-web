@@ -117,6 +117,7 @@
     })
     .done(() => {
       $('.radiobox').on('click', function(e) {
+        console.log($(this));
         var putData = {
           id: $(this)[0].name,
           value: $(this).val()
