@@ -1,25 +1,21 @@
 import React, {Component} from 'react';
-import Dialog from 'material-ui/Dialog';
 import {deepOrange500} from 'material-ui/styles/colors';
 import FlatButton from 'material-ui/FlatButton';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
-import {GridList, GridTile} from 'material-ui/GridList';
-import IconButton from 'material-ui/IconButton';
-import StarBorder from 'material-ui/svg-icons/toggle/star-border';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'material-ui/Card';
-import injectTapEventPlugin from 'react-tap-event-plugin'
 import {RadioButton, RadioButtonGroup} from 'material-ui/RadioButton';
-import ActionFavorite from 'material-ui/svg-icons/action/favorite';
-import ActionFavoriteBorder from 'material-ui/svg-icons/action/favorite-border';
-
 import axios from 'axios'
 
 const styles = {
   container: {
     display: 'flex',
     flexWrap: 'wrap',
-    justifyContent: 'center'
+    justifyContent: 'center',
+    padding : 30
+  },
+  card : {
+    margin : 30
   }
 };
 
@@ -39,11 +35,11 @@ class ContactConfirm extends Component {
   }
 
   componentWillMount(){
-    var count = 0;
-
     axios.get('/api/order')
          .then(data => {
-          console.log('data:::', data )
+          if(data){
+            data.data.sort((a, b) => a['created_time'] < b['created_time']);
+          }
           this.setState({
             orders : data.data
           })
@@ -52,41 +48,57 @@ class ContactConfirm extends Component {
           console.log('err:::', err)
          })
   }
+
+  handleClick(e){
+    var putdata = {
+      id : e.target.name,
+      value : e.target.value
+    }
+    axios.put('/api/order', putdata)
+         .then(putdata => {
+          console.log('putdata', putdata)
+         })
+
+  }
+
   render() {
 
     return (
     <MuiThemeProvider muiTheme={muiTheme}>
+
       <div style={styles.container}>
     {this.state.orders.map((order, i) => (
-      <Card key={i}>
+      <Card key={i} style={styles.card}>
       <CardHeader 
         title={order.private.username}
         subtitle={order.private.address}
         avatar={order.img}
       />
       <CardMedia>
-        <img src={order.message} />
+         <img src={'/uploads/' + order.image1 } />
       </CardMedia>
       <CardTitle title= {'수리종류: ' + order.repairType} />
       <CardText>
       수리요청 날짜 : {order.reqDate}<br/>
-      수리 내용 : {order.message}
+      수리 내용 : {order.message}<br />
+      연락처 : {order.private.phone}
       </CardText>
       <CardActions>
-        <RadioButtonGroup name="confirm" defaultSelected="light">
-      <RadioButton
-        value="light"
-        label="검토중"
-        style={styles.radioButton}
-        
-      />
-      <RadioButton
-        value="not_light"
-        label="수리완료"
-        style={styles.radioButton}
-        
-      />
-    </RadioButtonGroup>
+      <RadioButtonGroup name={order._id} defaultSelected={order.status.toString()} onChange={this.handleClick.bind(this)} >
+        <RadioButton 
+          value="0"
+          label="검토중"
+          style={styles.radioButton}
+          
+        />
+        <RadioButton
+          name ={order._id}
+          value="1"
+          label="수리완료"
+          style={styles.radioButton}
+          
+        />       
+      </RadioButtonGroup>
       </CardActions>
     </Card>
     ))}
