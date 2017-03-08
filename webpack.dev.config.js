@@ -44,13 +44,17 @@ module.exports = {
         test: /\.js$/,
         loaders: ['react-hot-loader', 'babel-loader?' + JSON.stringify({
             cacheDirectory: true,
-            presets: ['es2015', 'react']
+            presets: ['es2015', 'react', 'stage-2']
         })],
         exclude: /node_modules/,
       },
       {
         test: /\.css$/,
         loader: 'style-loader!css-loader?modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]'
+      },
+      {
+        test: /\.less$/,
+        use: ["style-loader", {loader: 'css-loader', options: {sourceMap: 1}}, "less-loader"]
       }
     ]
   }

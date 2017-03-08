@@ -11,7 +11,6 @@ const MenuItem = ({active, children, to}) => (
 const Header = () => {
     return (
         <div>
-            <div className={styles.logo}></div>
             <div className={styles.menu}>
                 <MenuItem to={'/repair'}>수리견적요청</MenuItem>
                 <MenuItem to={'/admin'}>관리자 페이지</MenuItem>

@@ -1,21 +1,40 @@
 import React from 'react';
-import Header from '../components/Header/Header'
+import { Layout, Menu, Breadcrumb } from 'antd';
+const { Header, Content, Footer } = Layout;
+import {Link} from 'react-router';
+import ContactInfo from '../components/ContactInfo/ContactInfo'
 import styles from './App.css';
 
+const MenuItem = ({active, children, to}) => (
+    <Link to={to} className={styles["menu-item"]}>
+            {children}
+    </Link>
+)
 
 export default class App extends React.Component {
   render() {
     return (
       <div>
-      <Header></Header>
-      {this.props.children}
-      <div className={styles.container}>
-        <h1>뭐든지 수리</h1>
-        <div>
-          <a href="/dbtest.html" target="_blank">db 테스트 페이지입니다. 다음 머지 때 지우고 작업하세요.</a><br /><br />
-          나중에 작업 하실 때 /public/dbtest.html 파일 보시고 name값 참고하셔서 db에 폼 데이터 보내시면 됩니다.
-        </div>
-      </div>
+      <Layout>
+    <Header className={styles.header}>
+      <img className={styles.logo} src={'/uploads/1488782026486_whatever-repair_0.png'}/>
+      <Menu
+        theme="light"
+        mode="horizontal"
+        defaultSelectedKeys={['2']}
+        style={{ lineHeight: '64px' }}
+      >
+        <Menu.Item key="1" ><Link to={'/repair'} >수리견적요청</Link></Menu.Item>
+        <Menu.Item key="2"><Link to={'/admin'} >관리자페이지</Link></Menu.Item>
+      </Menu>
+    </Header>
+    <Content className="content">
+      <div style={{ background: '#fff', padding: '100px', minHeight: '480px' }}>{this.props.children}</div>
+    </Content>
+    <Footer style={{ textAlign: 'center' }}>
+     뭐든지수리 ©2017 Created by 뭐든지수리
+    </Footer>
+  </Layout>
       </div>
     );
   };
