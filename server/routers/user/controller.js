@@ -72,11 +72,7 @@ exports.register = (req, res) => {
 
 exports.login = (req, res) => {
   const { username, password } = req.body;
-<<<<<<< HEAD
   const secret = 'HyOJuNgSoNhAsHiNg';
-=======
-  const secret = req.app.get('jwt-secret');
->>>>>>> before rebase
 
   // check the user info & generate the jwt
   const check = (user) => {
