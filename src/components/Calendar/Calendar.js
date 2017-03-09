@@ -37,7 +37,7 @@ function dateCellRender(value) {
       {
         listData.map(item =>
           <li key={item.content}>
-            <span className={'styles'+`event-${item.type}`}>●</span>
+            <span className={'styles["'+`event-${item.type}`+'"]'}>●</span>
             {item.content}
           </li>
         )
@@ -54,7 +54,7 @@ function getMonthData(value) {
 
 function monthCellRender(value) {
   const num = getMonthData(value);
-  return num ? <div className={styles.notes-month}>
+  return num ? <div className={styles['notes-month']}>
     <section>{num}</section>
     <span>Backlog number</span>
   </div> : null;

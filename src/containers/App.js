@@ -26,10 +26,13 @@ export default class App extends React.Component {
       >
         <Menu.Item key="1" ><Link to={'/repair'} >수리견적요청</Link></Menu.Item>
         <Menu.Item key="2"><Link to={'/admin'} >관리자페이지</Link></Menu.Item>
+        <Menu.Item key="3"><Link to={'/login'} >로그인</Link></Menu.Item>
       </Menu>
     </Header>
     <Content className="content">
-      <div style={{ background: '#fff', padding: '100px', minHeight: '480px' }}>{this.props.children}</div>
+      <div style={{ background: '#fff', padding: '100px', minHeight: '480px' }}>
+      {this.props.children}
+      </div>
     </Content>
     <Footer style={{ textAlign: 'center' }}>
      뭐든지수리 ©2017 Created by 뭐든지수리

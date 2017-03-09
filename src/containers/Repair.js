@@ -1,6 +1,5 @@
 import React from 'react';
 import { Steps, Button, message, Icon} from 'antd';
-import Calendar from '../components/Calendar/Calendar'
 const Step = Steps.Step;
 
 const steps = [{
@@ -66,7 +65,6 @@ export default class Repair extends React.Component {
             </Button>
           }
         </div>
-        <Calendar />
       </div>
     );
   }
