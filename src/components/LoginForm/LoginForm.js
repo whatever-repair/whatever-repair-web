@@ -1,13 +1,13 @@
-import React from 'React';
+import React from 'react';
 import { Form, Icon, Input, Button, Checkbox } from 'antd';
-import styles from './LoginForm.css'
+import styles from './LoginForm.css';
 const FormItem = Form.Item;
 
 export default class LoginForm extends React.Component {
 
   render() {
     return (
-      <Form onSubmit={this.handleSubmit} className={styles['login-form']}>
+      <Form className={styles['login-form']}>
         <FormItem>
             <Input prefix={<Icon type="user" style={{ fontSize: 13 }} />} placeholder="Username" />
         </FormItem>

@@ -30,7 +30,9 @@ export default class App extends React.Component {
       </Menu>
     </Header>
     <Content className="content">
-      <div style={{ background: '#fff', padding: '100px', minHeight: '480px' }}>{this.props.children}</div>
+      <div style={{ background: '#fff', padding: '100px', minHeight: '480px' }}>
+      {this.props.children}
+      </div>
     </Content>
     <Footer style={{ textAlign: 'center' }}>
      뭐든지수리 ©2017 Created by 뭐든지수리

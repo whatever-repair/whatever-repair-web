@@ -5,9 +5,10 @@ import App from './containers/App';
 import Repair from './containers/Repair';
 import Admin from './containers/Admin';
 import Login from './containers/Login';
-import ContactInfo from './components/ContactInfo/ContactInfo'
-import 'antd/dist/antd.css'
-import injectTapEventPlugin from 'react-tap-event-plugin'
+import ContactInfo from './components/ContactInfo/ContactInfo';
+import Calendar from './components/Calendar/Calendar';
+import 'antd/dist/antd.css';
+import injectTapEventPlugin from 'react-tap-event-plugin';
 //메뉴아이템을 렌더합니다.
 
 injectTapEventPlugin();
@@ -15,7 +16,11 @@ ReactDOM.render(
   <Router history={browserHistory}>
     <Route path="/" component={App}>
     <Route path="repair" component={Repair}/>
-    <Route path="admin" component={Admin} />
+    <Route path="/admin" component={Admin} >
+      <Route path='/admin/repairlist' component={ContactInfo} />
+      <Route path='/admin/repairschedule' component={Calendar} />
+
+    </Route>
     <Route path="login" component={Login}/>
     </Route>
   </Router>,

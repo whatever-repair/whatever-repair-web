@@ -4,9 +4,9 @@ import { Layout, Menu, Breadcrumb, Icon } from 'antd';
 const RadioGroup = Radio.Group;
 import { Card, Col, Row } from 'antd';
 import styles from './ContactInfo.css';
-import ConfirmCheckBox from '../ConfirmCheckBox/ConfirmCheckBox'
+import ConfirmCheckBox from '../ConfirmCheckBox/ConfirmCheckBox';
 import { Carousel } from 'antd';
-import axios from 'axios'
+import axios from 'axios';
 
 export default class ContactInfo extends React.Component {
   constructor(props){
