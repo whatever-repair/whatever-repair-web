@@ -92,8 +92,8 @@ exports.login = function (req, res) {
             username: user.username,
             admin: user.admin
           }, secret, {
-            expiresIn: '7d',
-            issuer: 'velopert.com',
+            expiresIn: '1d',
+            issuer: 'whatever-repair.com',
             subject: 'userInfo'
           }, function (err, token) {
             if (err) reject(err);

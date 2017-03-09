@@ -6,6 +6,7 @@
   <script src="/socket.io/socket.io.js"></script>
 </head>
 <body>
+  <button id="logout">로그아웃</button>
   <h1>DB 쓰기 테스트</h1>
   <form id="ajaxPost" action="/api/order" method="post" enctype="multipart/form-data">
     <p>이미지는 최대 3장 까지 업로드 가능합니다.</p>
@@ -55,6 +56,11 @@
   crossorigin="anonymous"></script>
 
   <script>
+    $('#logout').on('click', function(e) {
+      window.localStorage.removeItem('repair');
+      window.location = 'http://127.0.0.1:3000/'
+    });
+
     $('#ajaxPost').submit(function(e) {
       e.preventDefault();
       var formData = new FormData($(this)[0]); // 폼 데이터 파싱 후 생성

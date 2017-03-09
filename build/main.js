@@ -24,6 +24,10 @@ var _mongoose = require('mongoose');
 
 var _mongoose2 = _interopRequireDefault(_mongoose);
 
+var _expressSession = require('express-session');
+
+var _expressSession2 = _interopRequireDefault(_expressSession);
+
 var _orders = require('./routers/orders.js');
 
 var _orders2 = _interopRequireDefault(_orders);
@@ -42,8 +46,8 @@ var _webpack2 = _interopRequireDefault(_webpack);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var app = (0, _express2.default)(); // 파일 업로드를 가능하게 해줌. <form method="post" enctype="multipart/form-data"> <input type="file">
-
+// 파일 업로드를 가능하게 해줌. <form method="post" enctype="multipart/form-data"> <input type="file">
+var app = (0, _express2.default)();
 app.io = (0, _socket2.default)();
 var server = require('http').createServer(app);
 app.io.attach(server);

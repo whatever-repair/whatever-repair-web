@@ -11,10 +11,8 @@
   <form id="ajaxPost" >
     <input type="text" name="username" placeholder="아이디">
     <input type="password" name="password" placeholder="비밀번호">
-    <input type="submit" value="회원가입">
     <input type="submit" value="로그인">
   </form>
-    <input type="text">
   <div id="push"></div>
   <script
   src="https://code.jquery.com/jquery-2.2.4.js"
@@ -37,8 +35,13 @@
         data: $(this).serialize(), // 폼데이터 타입 직렬화, 파일 업로드 아닐 때.
         success: (data) => {
           console.log('ajax sending success::: ', data);
-          window.localStorage.setItem('repair', data.token);
+          if (data.token) {
+            window.localStorage.setItem('repair', data.token);
+          }
         }
+      })
+      .done(() => {
+        window.location = 'http://127.0.0.1:3000/dbtest.html';
       });
     });
   </script>
