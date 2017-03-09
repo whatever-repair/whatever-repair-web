@@ -3,7 +3,7 @@ import bodyParser from 'body-parser';
 import morgan from 'morgan';
 import multipart from 'connect-multiparty';  // 파일 업로드를 가능하게 해줌. <form method="post" enctype="multipart/form-data"> <input type="file">
 import mongoose from 'mongoose';
-
+import session from 'express-session';
 import orderRouter from './routers/orders.js';
 import uploadRouter from './routers/upload.js';
 
