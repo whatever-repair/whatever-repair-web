@@ -23,7 +23,7 @@ function login(req, res) {
         res.json({
           message: 'logged in successfully',
           token: token
-        }).redirect('/dbtest.html');
+        });
       });
     });
     return p;
