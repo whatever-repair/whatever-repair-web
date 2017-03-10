@@ -137,8 +137,4 @@ exports.check = (req, res) => {
     success: true,
     info: req.decoded
   });
-<<<<<<< HEAD
 };
-=======
-};
->>>>>>> before rebase

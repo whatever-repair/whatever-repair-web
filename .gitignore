@@ -6,6 +6,6 @@ uploads/
 
 .DS_Store
 
-build
+build/
 
 public/bundle.js
