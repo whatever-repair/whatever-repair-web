@@ -4,6 +4,7 @@ import bodyParser from 'body-parser';
 import orderController from '../../db/order/orderController';
 import mongoose from 'mongoose';
 import multipart from 'connect-multiparty';  // 파일 업로드를 가능하게 해줌. <form method="post" enctype="multipart/form-data"> <input type="file">
+import user from './user';
 
 mongoose.Promise = global.Promise;
 
@@ -35,12 +36,11 @@ router.route('/order')
 
   // multipart 미들웨어를 사용해야 req.files를 읽을 수 있음
   .post(mpMiddleware, (req, res) => {
-    console.log('body::: ', typeof req.body, req.body, 'files::: ', req.files);
 
     // 이미지 파일 존재 하는 것만 db에 쓰기 위한 코드
     let imageFiles = [req.files.image1, req.files.image2, req.files.image3];
     let fileNames = [];
-    
+
     imageFiles.forEach((v, i) => {
       if (v.size > 0) {
         let name = v.name.split('.');
@@ -72,14 +72,12 @@ router.route('/order')
       } else {
         fs.unlink(v.path, (err) => {
           if (err) {
-            console.log('NO image error', err);
+            console.log('there is no image', err);
             res.sendStatus(400);
           }
         });
       }
     });
-    
-    console.log('imageFile::: ', imageFiles, 'fileName::: ', fileNames);
 
     // 몽구스 스키마 설정, 이미지가 없는 필드는 null을 입력하여 클라이언트에서 로드 할 때 건너 뛸 수 있도록 함
     const userReq = {
@@ -95,20 +93,20 @@ router.route('/order')
         username: req.body.username
       }
     };
-    
+
     // db에 컬렉션을 save()하는 코드
     orderController.insertOne(userReq, (err) => {
       if (err) {
         res.send('<h1>데이터 베이스 에러</h1>');
         return console.log('DB can\'t insert!!!', err);
       }
+      
       res.sendStatus(200);
     });
   });
 
   router.route('/order')
     .put((req, res) => {
-      console.log(req.body);
       let userReq = req.body;
 
       orderController.editOne(userReq, (err) => {
@@ -119,4 +117,8 @@ router.route('/order')
         res.sendStatus(200);
       });
     });
+
+  // user route
+  router.use('/user', user);
+
   module.exports = router;
