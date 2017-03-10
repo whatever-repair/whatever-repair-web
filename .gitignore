@@ -7,3 +7,5 @@ uploads/
 .DS_Store
 
 build
+
+public/bundle.js
