@@ -72,7 +72,7 @@ exports.register = (req, res) => {
 
 exports.login = (req, res) => {
   const { username, password } = req.body;
-  const secret = req.app.get('jwt-secret');
+  const secret = 'HyOJuNgSoNhAsHiNg';
 
   // check the user info & generate the jwt
   const check = (user) => {
@@ -92,7 +92,7 @@ exports.login = (req, res) => {
           {
             expiresIn: '1d',
             issuer: 'whatever-repair.com',
-            subject: 'userInfo'
+            subject: 'adminInfo'
           }, (err, token) => {
             if (err) reject(err);
             resolve(token);
@@ -132,7 +132,6 @@ exports.login = (req, res) => {
 */
 
 exports.check = (req, res) => {
-  console.log('after next!!!');
   res.json({
     success: true,
     info: req.decoded

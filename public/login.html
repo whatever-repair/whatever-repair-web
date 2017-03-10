@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Document</title>
+  <script src="/socket.io/socket.io.js"></script>
 </head>
 <body>
   <form id="ajaxPost" >
@@ -12,12 +13,19 @@
     <input type="password" name="password" placeholder="비밀번호">
     <input type="submit" value="로그인">
   </form>
-
+  <div id="push"></div>
   <script
   src="https://code.jquery.com/jquery-2.2.4.js"
   integrity="sha256-iT6Q9iMJYuQiMWNd9lDyBUStIq/8PuOW33aOqmvFpqI="
   crossorigin="anonymous"></script>
   <script>
+    var socket = io.connect();
+    console.log('socket', socket);
+    socket.on('push', function(data) {
+      console.log('client receive push!!');
+      alert(data);
+    });
+    
     $('#ajaxPost').submit(function(e) {
       e.preventDefault();
       
@@ -35,7 +43,6 @@
       .done(() => {
         window.location = 'http://127.0.0.1:3000/dbtest.html';
       });
-      
     });
   </script>
 </body>

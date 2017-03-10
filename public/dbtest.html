@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <title>Document</title>
+  <script src="/socket.io/socket.io.js"></script>
 </head>
 <body>
   <button id="logout">로그아웃</button>
@@ -78,13 +79,15 @@
           if (status === 'OK') {
             let username = $('#username').val();
             let reqDate = $('#reqDate').val();
+            let socket = io.connect();
+            console.log(socket);
+            socket.emit('newOrder', '새로운 주문');
             alert(`${username}님의 견적 예약 방문이 ${reqDate}로 신청되었습니다.`);
           }
         }
       });
       
     });
-
     $.ajax({
       url: '/api/order',
       type: 'GET',
@@ -94,7 +97,6 @@
           data.sort((a, b) => a['created_time'] < b['created_time']);
           data.forEach((order, i) => {
             var status = order.status === 0 ? '검토중' : '수리완료';
-            console.log('order._id::: ', order);
             var appendData = `
               <div>
                 <p>
@@ -115,7 +117,7 @@
               </div>`
             $('#db').append(appendData + '<hr>');
           });
-        }  
+        }
       }
     })
     .done(() => {
@@ -125,7 +127,7 @@
           id: $(this)[0].name,
           value: $(this).val()
         }
-        
+
         $.ajax({
           url: 'api/order',
           type: 'PUT',
