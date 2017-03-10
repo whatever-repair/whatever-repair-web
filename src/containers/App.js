@@ -3,6 +3,7 @@ import { Layout, Menu, Breadcrumb } from 'antd';
 const { Header, Content, Footer } = Layout;
 import {Link} from 'react-router';
 import ContactInfo from '../components/ContactInfo/ContactInfo'
+
 import styles from './App.css';
 
 const MenuItem = ({active, children, to}) => (
@@ -21,7 +22,7 @@ export default class App extends React.Component {
       <Menu
         theme="light"
         mode="horizontal"
-        defaultSelectedKeys={['2']}
+        defaultSelectedKeys={['1']}
         style={{ lineHeight: '64px' }}
       >
         <Menu.Item key="1" ><Link to={'/repair'} >수리견적요청</Link></Menu.Item>
@@ -30,7 +31,7 @@ export default class App extends React.Component {
       </Menu>
     </Header>
     <Content className="content">
-      <div style={{ background: '#fff', padding: '100px', minHeight: '480px' }}>
+      <div style={{ background: '#fff', padding: '100px 100px 200px 200px', minHeight: '480px' }}>
       {this.props.children}
       </div>
     </Content>

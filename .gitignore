@@ -5,3 +5,7 @@ node_modules/
 uploads/
 
 .DS_Store
+
+build
+
+public/bundle.js
