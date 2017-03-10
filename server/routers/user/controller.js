@@ -132,7 +132,6 @@ exports.login = (req, res) => {
 */
 
 exports.check = (req, res) => {
-  console.log('after next!!!');
   res.json({
     success: true,
     info: req.decoded
