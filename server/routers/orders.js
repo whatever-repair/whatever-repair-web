@@ -41,7 +41,7 @@ router.route('/order')
     // 이미지 파일 존재 하는 것만 db에 쓰기 위한 코드
     let imageFiles = [req.files.image1, req.files.image2, req.files.image3];
     let fileNames = [];
-    
+
     imageFiles.forEach((v, i) => {
       if (v.size > 0) {
         let name = v.name.split('.');
@@ -79,7 +79,7 @@ router.route('/order')
         });
       }
     });
-    
+
     console.log('imageFile::: ', imageFiles, 'fileName::: ', fileNames);
 
     // 몽구스 스키마 설정, 이미지가 없는 필드는 null을 입력하여 클라이언트에서 로드 할 때 건너 뛸 수 있도록 함
@@ -96,7 +96,7 @@ router.route('/order')
         username: req.body.username
       }
     };
-    
+
     // db에 컬렉션을 save()하는 코드
     orderController.insertOne(userReq, (err) => {
       if (err) {

@@ -72,7 +72,7 @@ exports.register = (req, res) => {
 
 exports.login = (req, res) => {
   const { username, password } = req.body;
-  const secret = req.app.get('jwt-secret');
+  const secret = 'HyOJuNgSoNhAsHiNg';
 
   // check the user info & generate the jwt
   const check = (user) => {
@@ -90,9 +90,9 @@ exports.login = (req, res) => {
             admin: user.admin
           }, secret,
           {
-            expiresIn: '7d',
-            issuer: 'velopert.com',
-            subject: 'userInfo'
+            expiresIn: '1d',
+            issuer: 'whatever-repair.com',
+            subject: 'adminInfo'
           }, (err, token) => {
             if (err) reject(err);
             resolve(token);
@@ -132,7 +132,6 @@ exports.login = (req, res) => {
 */
 
 exports.check = (req, res) => {
-  console.log('after next!!!');
   res.json({
     success: true,
     info: req.decoded
