@@ -25,7 +25,7 @@ export default class Admin extends React.Component {
             defaultOpenKeys={['sub1']}
             style={{ height: '100%' }}
           >
-            <SubMenu key="sub1" title={<span><Icon type="tool" />수리요청</span>}>
+            <SubMenu key="sub1" title={<Link to={'/admin/repairFrom'}><span><Icon type="tool" />수리요청</span></Link>}>
               <Menu.Item key="1"><Link to={'/admin/repairlist'}>검토목록<Badge count={5} /></Link></Menu.Item>
               <Menu.Item key="2">수리완료 목록</Menu.Item>
             </SubMenu>

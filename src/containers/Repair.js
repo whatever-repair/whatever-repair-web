@@ -1,5 +1,6 @@
 import React from 'react';
 import { Steps, Button, message, Icon} from 'antd';
+import Main from '../components/Main/Main';
 const Step = Steps.Step;
 
 const steps = [{
@@ -42,6 +43,7 @@ export default class Repair extends React.Component {
     const { current } = this.state;
     return (
       <div>
+        <Main />
         <Steps current={current}>
           {steps.map(item => <Step key={item.title} title={item.title} />)}
         </Steps>
