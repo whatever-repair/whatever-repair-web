@@ -5,11 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Document</title>
-<<<<<<< HEAD
  <script src="/socket.io/socket.io.js"></script>
-=======
-  <script src="/socket.io/socket.io.js"></script>
->>>>>>> c983504ba6ab48ac62bd349804ab8da905a0e6bd
 </head>
 <body>
   <form id="ajaxPost" >
@@ -29,15 +25,7 @@
       console.log('client receive push!!');
       alert(data);
     });
-    // window.onload = function() {
-      var socket = io.connect();
-      console.log('socket', socket);
-      socket.on('push', function(data) {
-        console.log('client receive push!!');
-        alert(data);
-      });
-    // }
-
+    
     $('#ajaxPost').submit(function(e) {
       e.preventDefault();
       $.ajax({
@@ -46,13 +34,11 @@
         data: $(this).serialize(), // 폼데이터 타입 직렬화, 파일 업로드 아닐 때.
         success: (data) => {
           console.log('ajax sending success::: ', data);
-          if (data.token) {
-            window.localStorage.setItem('repair', data.token);
+          if (data) {
+            window.localStorage.setItem('repair', data);
+            window.location = 'http://127.0.0.1:3000/dbtest.html';
           }
         }
-      })
-      .done(() => {
-        window.location = 'http://127.0.0.1:3000/dbtest.html';
       });
     });
   </script>
