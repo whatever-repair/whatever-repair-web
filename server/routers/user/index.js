@@ -21,9 +21,14 @@ router.post('/login', function(req, res) {
       subject: 'adminInfo'
     }, (err, token) => {
       if (err) res.send(404);
-      res.json(token);
+      res.json({token: token});
     });
 
+  } else {
+    res.status(400).json({
+      success: false,
+      message: '접근 권한이 없습니다.'
+    });
   }
 
 });
