@@ -55,6 +55,7 @@ export default class Login extends React.Component {
           errors: {}
         });
         window.localStorage.setItem('repair', xhr.response.token);
+        window.location = 'http://' + window.location.hostname + ':' + window.location.port;
       } else {
         // failure
         console.log(xhr.response);

@@ -11,9 +11,22 @@ const MenuItem = ({active, children, to}) => (
 )
 
 export default class Admin extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.logout.bind(this);
+  }
+
+  logout() {
+    window.localStorage.removeItem('repair');
+    console.log(window.location);
+    window.location = 'http://' + window.location.hostname + ':' + window.location.port;
+  }
+
   render() {
     return (
       <Layout style={{ padding: '24px 0', background: '#fff' }}>
+        <Button onClick={this.logout}>로그아웃</Button>
         <Sider 
           breakpoint="lg"
           collapsedWidth="0"
