@@ -26,8 +26,8 @@ export default class App extends React.Component {
         style={{ lineHeight: '64px' }}
       >
         <Menu.Item key="1" ><Link to={'/repair'} >수리견적요청</Link></Menu.Item>
-        <Menu.Item key="2"><Link to={'/admin'} >관리자페이지</Link></Menu.Item>
-        <Menu.Item key="3"><Link to={'/login'} >로그인</Link></Menu.Item>
+        {window.localStorage.getItem('repair') ? <Menu.Item key="2"><Link to={'/admin'} >관리자페이지</Link></Menu.Item> :
+        <Menu.Item key="3"><Link to={'/login'} >관리자로그인</Link></Menu.Item>}
       </Menu>
     </Header>
     <Content className="content">
